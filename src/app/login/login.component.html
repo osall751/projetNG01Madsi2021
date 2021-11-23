@@ -2,10 +2,20 @@
   <!-- <div class="text-center">
     <img [src]="src" alt="" style="width: 50%;"/>
   </div> -->
-  <div class="alert alert-primary" role="alert" [hidden]="login.length==0">
+  <!-- <div class="alert alert-primary" role="alert" [hidden]="login.length==0">
+    Le login saisie est <strong>{{login}}</strong><br>
+    Le mot de passe saisie est <strong>{{password}}</strong>
+  </div> -->
+  <div class="alert alert-primary" role="alert"  *ngIf="login.length>0;else blockSinon">
     Le login saisie est <strong>{{login}}</strong><br>
     Le mot de passe saisie est <strong>{{password}}</strong>
   </div>
+  <ng-template #blockSinon>
+    <div class="alert alert-primary" role="alert">
+      Vérifier le login et le mot de passe saisies !!!
+    </div>
+  </ng-template>
+
   <div class="row justify-content-center">
      <div class="col-md-6 col-lg-4 col-xl-4">
         <div class="card">
