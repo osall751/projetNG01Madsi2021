@@ -15,7 +15,7 @@ export class AccueilComponent implements OnInit {
     new RendezVous(2, "Diourbel", "Entretien avec le Président", new Date("2022/07/24")),
     new RendezVous(3, "Bakhdad", "Visite Touristique", new Date("2021/12/12")),
     new RendezVous(4, "Nouakchott", "Travail sur le projet OMVS", new Date("2022/08/08")),
-    new RendezVous(5, "Saint-Louis", "Aller au Restaurant", new Date("2022/01/04")),
+    new RendezVous(5, "Saint-Louis", "Aller au Restaurant", new Date("2022/01/04"))
   ]
 
   constructor(private routeActive: ActivatedRoute) { }
