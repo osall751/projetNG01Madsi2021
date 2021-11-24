@@ -15,4 +15,8 @@ export class AuthentificationService {
       alert(`Vérifier le login et/ou le mot de passe saisies`)
     }
   }
+
+  seDeconnecter() {
+    this.router.navigate(["login"])
+  }
 }
