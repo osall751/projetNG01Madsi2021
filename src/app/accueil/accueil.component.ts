@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { RendezVous } from '../models/rendezvous';
+import { ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-accueil',
@@ -18,9 +19,36 @@ export class AccueilComponent implements OnInit {
     new RendezVous(5, "Saint-Louis", "Aller au Restaurant", new Date("2022/01/04"))
   ]
 
-  constructor(private routeActive: ActivatedRoute) { }
+  closeResult = '';
 
+  constructor(private routeActive: ActivatedRoute, private modalService: NgbModal) { }
+  open(content:any) {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
   ngOnInit(): void {
     this.adresseMail = this.routeActive.snapshot.paramMap.get("email")
   }
+
+  deleteRV(id: any) {
+    if (window.confirm("Voulez-vous rellement supprimer cet élément ?")) {
+      this.tabRvs = this.tabRvs.filter((rv) => {
+        return rv.idRv != id
+      });
+    }
+  }
+
 }
