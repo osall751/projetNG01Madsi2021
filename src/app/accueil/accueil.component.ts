@@ -29,16 +29,25 @@ export class AccueilComponent implements OnInit {
   )
 
   constructor(private routeActive: ActivatedRoute, private modalService: NgbModal) { }
+
   open(content: any) {
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
-      this.tabRvs=[this.rv, ...this.tabRvs]
+      this.tabRvs = [this.rv, ...this.tabRvs]
       this.rv = new RendezVous(
         new Date().getTime() * Math.floor(Math.random() * 10000),
         "Université Gaston Berger de Saint-Louis",
         "La déclaration de Ousmane Sonko sur la non-signature de la charte de non-violence par son parti, a fait couler beaucoup d’encre depuis dimanche dernier. Et c'est d'ailleurs l'objet de son face à face avec la presse ce mercredi 24 novembre.",
         new Date()
       )
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+  editerRV(content: any, rvToEdit: RendezVous) {
+    this.rv = rvToEdit
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+       console.log(this.rv);
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });

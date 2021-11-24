@@ -7,7 +7,7 @@
 <a routerLink="/login">Retourner au formulaire de connexion</a><br />
 <a href="http://www.seneweb.com">Seneweb</a><br />
 <div class="text-center">
-  <button class="btn btn-lg btn-outline-primary" (click)="open(content)">
+  <button class="btn btn-lg btn-danger" (click)="open(content)">
     Créer un nouveau Rendez-Vous
   </button>
 </div>
@@ -26,7 +26,7 @@
       <td>{{ rv.lieu }}</td>
       <td>{{ rv.description }}</td>
       <td>{{ rv.date }}</td>
-      <td><i class="fa fa-edit" style="color: red"></i></td>
+      <td><i class="fa fa-edit" style="color: red" (click)="editerRV(content, rv)"></i></td>
       <td>
         <i
           class="fa fa-trash"
@@ -43,39 +43,35 @@
     <h4 class="modal-title" id="modal-basic-title">
       Saisie d'un nouveau Rendez-Vous
     </h4>
-    <button type="button"  class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+    <button type="button"  class="close btn-danger" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
     <!-- <form> -->
     <div class="form-group">
-      <label for="idRv">Id du Rendez-Vous</label>
-      <input type="text"  disabled [(ngModel)]="rv.idRv" class="form-control" name="idRv" id="idRv" aria-describedby="helpId">
+      <label for="idRv"><b>Id du Rendez-Vous</b></label>
+      <input type="text"  disabled [(ngModel)]="rv.idRv" class="form-control bg-secondary text-light" name="idRv" id="idRv" aria-describedby="helpId">
     </div>
     <div class="form-group">
-      <label for="lieuRv">Lieu du Rendez-Vous</label>
-      <input type="text" [(ngModel)]="rv.lieu" class="form-control" name="lieuRv" id="lieuRv" aria-describedby="helpId">
+      <label for="lieuRv"><b>Lieu du Rendez-Vous</b></label>
+      <input type="text" [(ngModel)]="rv.lieu" class="form-control bg-secondary text-light" name="lieuRv" id="lieuRv" aria-describedby="helpId">
     </div>
     <div class="form-group">
-      <label for="descRv">Description du Rendez-Vous</label>
-      <textarea class="form-control" [(ngModel)]="rv.description" name="descRv" id="descRv" rows="3"></textarea>
+      <label for="descRv"><b>Description du Rendez-Vous</b></label>
+      <textarea class="form-control bg-secondary text-light" [(ngModel)]="rv.description" name="descRv" id="descRv" rows="3"></textarea>
     </div>
     <div class="form-group">
-      <label for="dateOfBirth">Date du Rendez-Vous</label>
-      <div class="input-group">
-        <input id="dateRv" [(ngModel)]="rv.date" class="form-control" placeholder="yyyy-mm-dd" name="dp" type="date"/>
+      <label for="dateOfBirth"><b>Date du Rendez-Vous</b></label>
+      <div class="input-group ">
+        <input id="dateRv" [(ngModel)]="rv.date" class="form-control bg-secondary text-light" name="dp" type="datetime-local"/>
       </div>
     </div>
     <!-- </form> -->
   </div>
   <div class="modal-footer">
-    <button
-      type="button"
-      class="btn btn-outline-dark"
-      (click)="modal.close('Save click')"
-    >
-      Save
+    <button type="button" class="btn btn-danger" (click)="modal.close('Save click')">
+      Ajouter à la liste des Rendez-Vous
     </button>
   </div>
 </ng-template>
