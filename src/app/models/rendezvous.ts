@@ -1,4 +1,9 @@
 export class RendezVous {
+  constructor(private _idRv: number, private _lieu: string,
+    private _description: string,
+    private _date: Date
+  ) { }
+
   public get date(): Date {
     return this._date;
   }
@@ -23,10 +28,4 @@ export class RendezVous {
   public set idRv(value: number) {
     this._idRv = value;
   }
-  constructor(
-    private _idRv: number,
-    private _lieu: string,
-    private _description: string,
-    private _date: Date
-  ) { }
 }
