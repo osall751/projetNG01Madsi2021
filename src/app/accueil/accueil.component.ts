@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { RendezVous } from '../models/rendezvous';
-import { ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-accueil',
@@ -21,10 +21,24 @@ export class AccueilComponent implements OnInit {
 
   closeResult = '';
 
+  rv = new RendezVous(
+    new Date().getTime() * Math.floor(Math.random() * 10000),
+    "Université Gaston Berger de Saint-Louis",
+    "La déclaration de Ousmane Sonko sur la non-signature de la charte de non-violence par son parti, a fait couler beaucoup d’encre depuis dimanche dernier. Et c'est d'ailleurs l'objet de son face à face avec la presse ce mercredi 24 novembre.",
+    new Date()
+  )
+
   constructor(private routeActive: ActivatedRoute, private modalService: NgbModal) { }
-  open(content:any) {
+  open(content: any) {
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
+      this.tabRvs=[this.rv, ...this.tabRvs]
+      this.rv = new RendezVous(
+        new Date().getTime() * Math.floor(Math.random() * 10000),
+        "Université Gaston Berger de Saint-Louis",
+        "La déclaration de Ousmane Sonko sur la non-signature de la charte de non-violence par son parti, a fait couler beaucoup d’encre depuis dimanche dernier. Et c'est d'ailleurs l'objet de son face à face avec la presse ce mercredi 24 novembre.",
+        new Date()
+      )
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });

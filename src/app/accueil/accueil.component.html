@@ -5,9 +5,13 @@
 </div>
 <!-- <a href="/login">Retourner au formulaire de connexion</a><br /> -->
 <a routerLink="/login">Retourner au formulaire de connexion</a><br />
-<a href="http://www.seneweb.com">Seneweb</a>
-
-<table class="table table-striped table-inverse  table-responsive">
+<a href="http://www.seneweb.com">Seneweb</a><br />
+<div class="text-center">
+  <button class="btn btn-lg btn-outline-primary" (click)="open(content)">
+    Créer un nouveau Rendez-Vous
+  </button>
+</div>
+<table class="table table-striped table-inverse table-responsive">
   <thead class="thead-inverse">
     <tr>
       <th>Id</th>
@@ -23,38 +27,58 @@
       <td>{{ rv.description }}</td>
       <td>{{ rv.date }}</td>
       <td><i class="fa fa-edit" style="color: red"></i></td>
-      <td><i class="fa fa-trash" style="color: red" (click)="deleteRV(rv.idRv)"></i></td>
+      <td>
+        <i
+          class="fa fa-trash"
+          style="color: red"
+          (click)="deleteRV(rv.idRv)"
+        ></i>
+      </td>
     </tr>
   </tbody>
 </table>
 
 <ng-template #content let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+    <h4 class="modal-title" id="modal-basic-title">
+      Saisie d'un nouveau Rendez-Vous
+    </h4>
+    <button type="button"  class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
-    <form>
-      <div class="form-group">
-        <label for="dateOfBirth">Date of birth</label>
-        <div class="input-group">
-          <input id="dateOfBirth" class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #dp="ngbDatepicker">
-          <div class="input-group-append">
-            <button class="btn btn-outline-secondary calendar" (click)="dp.toggle()" type="button"></button>
-          </div>
-        </div>
+    <!-- <form> -->
+    <div class="form-group">
+      <label for="idRv">Id du Rendez-Vous</label>
+      <input type="text"  disabled [(ngModel)]="rv.idRv" class="form-control" name="idRv" id="idRv" aria-describedby="helpId">
+    </div>
+    <div class="form-group">
+      <label for="lieuRv">Lieu du Rendez-Vous</label>
+      <input type="text" [(ngModel)]="rv.lieu" class="form-control" name="lieuRv" id="lieuRv" aria-describedby="helpId">
+    </div>
+    <div class="form-group">
+      <label for="descRv">Description du Rendez-Vous</label>
+      <textarea class="form-control" [(ngModel)]="rv.description" name="descRv" id="descRv" rows="3"></textarea>
+    </div>
+    <div class="form-group">
+      <label for="dateOfBirth">Date du Rendez-Vous</label>
+      <div class="input-group">
+        <input id="dateRv" [(ngModel)]="rv.date" class="form-control" placeholder="yyyy-mm-dd" name="dp" type="date"/>
       </div>
-    </form>
+    </div>
+    <!-- </form> -->
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+    <button
+      type="button"
+      class="btn btn-outline-dark"
+      (click)="modal.close('Save click')"
+    >
+      Save
+    </button>
   </div>
 </ng-template>
-
-<button class="btn btn-lg btn-outline-primary" (click)="open(content)">Launch demo modal</button>
-
-<hr>
+<hr />
 
 <pre>{{ closeResult }}</pre>
