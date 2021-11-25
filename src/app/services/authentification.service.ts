@@ -10,13 +10,17 @@ export class AuthentificationService {
 
   authentification(login: any, password: any) {
     if (login.indexOf("@") != -1 && password.length > 0) {
-      this.router.navigate(["accueil", login])
+      sessionStorage.setItem("userEmail", login)
+      this.router.navigate(["accueil"])
     } else {
       alert(`Vérifier le login et/ou le mot de passe saisies`)
     }
   }
 
   seDeconnecter() {
-    this.router.navigate(["login"])
+    if (sessionStorage.getItem("userEmail") != null) {
+      sessionStorage.removeItem("userEmail")
+      this.router.navigate(["login"])
+    }
   }
 }

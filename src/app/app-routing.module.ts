@@ -6,7 +6,7 @@ import { AccueilComponent } from './accueil/accueil.component';
 const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'accueil/:email', component: AccueilComponent }
+  { path: 'accueil', component: AccueilComponent }
 ];
 
 @NgModule({

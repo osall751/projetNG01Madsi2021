@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RendezVous } from '../models/rendezvous';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -11,7 +11,7 @@ import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class AccueilComponent implements OnInit {
   adresseMail: any
   tabRvs: Array<RendezVous> = [
-    new RendezVous(0, "Sanar 1", "Aller au Restaurant", new Date("2021/11/24")),
+    new RendezVous(0, "Sanar 1", "Aller au Restaurant", new Date("2021/11/24 10:12")),
     new RendezVous(1, "Dakar", "Cours de Dev web", new Date("2022/01/24")),
     new RendezVous(2, "Diourbel", "Entretien avec le Président", new Date("2022/07/24")),
     new RendezVous(3, "Bakhdad", "Visite Touristique", new Date("2021/12/12")),
@@ -28,7 +28,7 @@ export class AccueilComponent implements OnInit {
     new Date()
   )
 
-  constructor(private routeActive: ActivatedRoute, private modalService: NgbModal) { }
+  constructor(private route: Router, private modalService: NgbModal) { }
 
   open(content: any) {
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
@@ -47,7 +47,8 @@ export class AccueilComponent implements OnInit {
   editerRV(content: any, rvToEdit: RendezVous) {
     this.rv = rvToEdit
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
-       console.log(this.rv);
+      console.log(this.rv);
+
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
@@ -63,9 +64,12 @@ export class AccueilComponent implements OnInit {
     }
   }
   ngOnInit(): void {
-    this.adresseMail = this.routeActive.snapshot.paramMap.get("email")
+    if (sessionStorage.getItem("userEmail") != null) {
+      this.adresseMail = sessionStorage.getItem("userEmail")
+    } else {
+      this.route.navigate(["login"])
+    }
   }
-
   deleteRV(id: any) {
     if (window.confirm("Voulez-vous rellement supprimer cet élément ?")) {
       this.tabRvs = this.tabRvs.filter((rv) => {
