@@ -21,8 +21,8 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let rv of tabRvs">
-      <td>{{ rv.idRv }}</td>
+    <tr *ngFor="let rv of rvapiService.tabRvs">
+      <td>{{ rv.id }}</td>
       <td>{{ rv.lieu | uppercase}}</td>
       <td>{{ rv.description }}</td>
       <td>{{ rv.date | date:'dd/MM/yyyy à hh:mm:ss' }}</td>
@@ -31,7 +31,7 @@
         <i
           class="fa fa-trash"
           style="color: red"
-          (click)="deleteRV(rv.idRv)"
+          (click)="deleteRV(rv.id)"
         ></i>
       </td>
     </tr>
@@ -50,8 +50,8 @@
   <div class="modal-body">
     <!-- <form> -->
     <div class="form-group">
-      <label for="idRv"><b>Id du Rendez-Vous</b></label>
-      <input type="text"  disabled [(ngModel)]="rv.idRv" class="form-control bg-secondary text-light" name="idRv" id="idRv" aria-describedby="helpId">
+      <label for="id"><b>Id du Rendez-Vous</b></label>
+      <input type="text"  disabled [(ngModel)]="rv.id" class="form-control bg-secondary text-light" name="id" id="id" aria-describedby="helpId">
     </div>
     <div class="form-group">
       <label for="lieuRv"><b>Lieu du Rendez-Vous</b></label>

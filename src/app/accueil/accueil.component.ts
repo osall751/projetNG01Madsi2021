@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RendezVous } from '../models/rendezvous';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { RvapiService } from '../services/rvapi.service';
 
 @Component({
   selector: 'app-accueil',
@@ -9,6 +10,9 @@ import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./accueil.component.css']
 })
 export class AccueilComponent implements OnInit {
+  public get rvapiService(): RvapiService {
+    return this._rvapiService;
+  }
   adresseMail: any
   tabRvs: Array<RendezVous> = [
     new RendezVous(0, "Sanar 1", "Aller au Restaurant", new Date("2021/11/24 10:12")),
@@ -28,7 +32,8 @@ export class AccueilComponent implements OnInit {
     new Date()
   )
 
-  constructor(private route: Router, private modalService: NgbModal) { }
+  constructor(private route: Router, private modalService: NgbModal,
+    private _rvapiService: RvapiService) { }
 
   open(content: any) {
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
@@ -66,6 +71,7 @@ export class AccueilComponent implements OnInit {
   ngOnInit(): void {
     if (sessionStorage.getItem("userEmail") != null) {
       this.adresseMail = sessionStorage.getItem("userEmail")
+      this.rvapiService.getRvsFromApi()
     } else {
       this.route.navigate(["login"])
     }
@@ -73,7 +79,7 @@ export class AccueilComponent implements OnInit {
   deleteRV(id: any) {
     if (window.confirm("Voulez-vous rellement supprimer cet élément ?")) {
       this.tabRvs = this.tabRvs.filter((rv) => {
-        return rv.idRv != id
+        return rv.id != id
       });
     }
   }

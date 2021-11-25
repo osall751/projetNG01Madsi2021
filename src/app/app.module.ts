@@ -8,7 +8,8 @@ import { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AuthentificationService } from './services/authentification.service';
-
+import { HttpClientModule } from "@angular/common/http";
+import { RvapiService } from './services/rvapi.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,9 +20,10 @@ import { AuthentificationService } from './services/authentification.service';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    NgbModule
+    NgbModule,
+    HttpClientModule
   ],
-  providers: [AuthentificationService],
+  providers: [AuthentificationService, RvapiService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
