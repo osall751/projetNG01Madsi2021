@@ -38,7 +38,8 @@ export class AccueilComponent implements OnInit {
   open(content: any) {
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
-      this.tabRvs = [this.rv, ...this.tabRvs]
+      // this.tabRvs = [this.rv, ...this.tabRvs]
+      this.rvapiService.createNewRvAtAPI(this.rv)
       this.rv = new RendezVous(
         new Date().getTime() * Math.floor(Math.random() * 10000),
         "Université Gaston Berger de Saint-Louis",
@@ -76,12 +77,14 @@ export class AccueilComponent implements OnInit {
       this.route.navigate(["login"])
     }
   }
+
   deleteRV(id: any) {
-    if (window.confirm("Voulez-vous rellement supprimer cet élément ?")) {
-      this.tabRvs = this.tabRvs.filter((rv) => {
-        return rv.id != id
-      });
-    }
+    this.rvapiService.deleteRvAtAPI(id)
+    // if (window.confirm("Voulez-vous rellement supprimer cet élément ?")) {
+    //   this.tabRvs = this.tabRvs.filter((rv) => {
+    //     return rv.id != id
+    //   });
+    // }
   }
 
 }
