@@ -54,7 +54,7 @@ export class AccueilComponent implements OnInit {
     this.rv = rvToEdit
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
       console.log(this.rv);
-
+      this.rvapiService.updateRvAtAPI(this.rv)
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });

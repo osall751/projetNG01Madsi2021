@@ -42,4 +42,15 @@ export class RvapiService {
         });
     }
   }
+
+  updateRvAtAPI(rv: RendezVous) {
+    if (window.confirm("Voulez-vous rellement mettre à jour cet élément ?")) {
+      this.http.put(
+        this.urlApi + "rvs/" + rv.id,
+        { lieu: rv.lieu, description: rv.description, date: rv.date },
+        this.httpOptions).subscribe((data: {}) => {
+          this.getRvsFromApi()
+        });
+    }
+  }
 }
